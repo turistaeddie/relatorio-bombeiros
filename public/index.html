@@ -7,12 +7,16 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            background-color: #f8f9fa;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: red;
+            text-align: center;
         }
         label, input, select, textarea {
             width: 100%;
@@ -26,74 +30,80 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Relatório de Ocorrência</h1>
-    
-    <label for="bombeiro">Bombeiro Responsável:</label>
-    <input type="text" id="bombeiro" placeholder="Digite seu nome...">
-    
-    <label for="tipo">Tipo de Ocorrência:</label>
-    <select id="tipo">
-        <option>Incêndio Urbano</option>
-        <option>Incêndio Florestal</option>
-        <option>Acidente de Trânsito</option>
-        <option>Resgate</option>
-    </select>
+    <div class="container">
+        <h1>Relatório de Ocorrência</h1>
+        
+        <label for="bombeiro">Bombeiro Responsável:</label>
+        <input type="text" id="bombeiro" placeholder="Digite seu nome...">
+        
+        <label for="tipo">Tipo de Ocorrência:</label>
+        <select id="tipo">
+            <option>Incêndio Urbano</option>
+            <option>Incêndio Florestal</option>
+            <option>Acidente de Trânsito</option>
+            <option>Resgate</option>
+        </select>
 
-    <label for="endereco">Endereço:</label>
-    <input type="text" id="endereco" placeholder="Digite o endereço...">
+        <label for="endereco">Endereço:</label>
+        <select id="endereco">
+            <option>Mirror Park</option>
+            <option>Vespucci Beach</option>
+            <option>Paleto Bay</option>
+            <option>Sandy Shores</option>
+            <option>Vinewood</option>
+        </select>
 
-    <label for="ids">ID(s) da(s) Vítima(s):</label>
-    <input type="text" id="ids" placeholder="Opcional">
+        <label for="ids">ID(s) da(s) Vítima(s):</label>
+        <input type="text" id="ids" placeholder="Opcional">
 
-    <label for="descricao">Descrição da Ocorrência:</label>
-    <textarea id="descricao" placeholder="Digite uma descrição opcional..."></textarea>
+        <label for="descricao">Descrição da Ocorrência:</label>
+        <textarea id="descricao" placeholder="Digite uma descrição opcional..."></textarea>
+        
+        <label for="pagamento">Conta médica foi paga?</label>
+        <select id="pagamento">
+            <option>Sim</option>
+            <option>Não</option>
+        </select>
+        
+        <label for="procedimentos">Procedimentos realizados (se APH):</label>
+        <select id="procedimentos">
+            <option>Nenhum</option>
+            <option>Reanimação</option>
+            <option>Tratamento Médico</option>
+            <option>Ida ao Hospital</option>
+        </select>
+        
+        <label for="data">Data e Hora da Ocorrência:</label>
+        <input type="datetime-local" id="data">
+        
+        <h2>PPO - Autoavaliação</h2>
+        
+        <label for="ppo">Avaliação Geral (0 a 5):</label>
+        <select id="ppo">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        
+        <button onclick="gerarRelatorio()">Gerar Relatório</button>
+    </div>
     
-    <label for="pagamento">Conta médica foi paga?</label>
-    <select id="pagamento">
-        <option>Sim</option>
-        <option>Não</option>
-    </select>
-    
-    <label for="procedimentos">Procedimentos realizados (se APH):</label>
-    <select id="procedimentos">
-        <option>Nenhum</option>
-        <option>Reanimação</option>
-        <option>Tratamento Médico</option>
-        <option>Ida ao Hospital</option>
-    </select>
-    
-    <label for="data">Data e Hora da Ocorrência:</label>
-    <input type="datetime-local" id="data">
-    
-    <h2>PPO - Autoavaliação</h2>
-    
-    <label for="equipamentos">Foram utilizados os equipamentos adequados?</label>
-    <select id="equipamentos">
-        <option>Sim</option>
-        <option>Não</option>
-    </select>
-    
-    <label for="deslocamento">Como foi o deslocamento?</label>
-    <input type="text" id="deslocamento" placeholder="Descreva...">
-    
-    <label for="equipe">Havia no mínimo 2 bombeiros na equipe?</label>
-    <select id="equipe">
-        <option>Sim</option>
-        <option>Não</option>
-    </select>
-    
-    <label for="metodos">Quais foram os métodos de combate ao incêndio?</label>
-    <input type="text" id="metodos" placeholder="Descreva..."><br>
-    
-    <button onclick="gerarRelatorio()">Gerar Relatório</button>
-
     <h2>Relatório Gerado:</h2>
     <textarea id="relatorio" readonly></textarea>
-
+    
     <script>
         function gerarRelatorio() {
             const bombeiro = document.getElementById("bombeiro").value;
@@ -104,11 +114,8 @@
             const pagamento = document.getElementById("pagamento").value;
             const procedimentos = document.getElementById("procedimentos").value;
             const data = document.getElementById("data").value;
-            const equipamentos = document.getElementById("equipamentos").value;
-            const deslocamento = document.getElementById("deslocamento").value;
-            const equipe = document.getElementById("equipe").value;
-            const metodos = document.getElementById("metodos").value;
-
+            const ppo = document.getElementById("ppo").value;
+            
             let relatorio = `🚒 **Relatório de Ocorrência** 🚒\n\n`;
             relatorio += `👨‍🚒 **Bombeiro Responsável:** ${bombeiro}\n`;
             relatorio += `🔹 **Tipo de Ocorrência:** ${tipo}\n`;
@@ -125,12 +132,7 @@
             
             relatorio += `💰 **Conta médica foi paga?** ${pagamento}\n`;
             relatorio += `🩺 **Procedimentos realizados:** ${procedimentos}\n`;
-            
-            relatorio += `🔥 **PPO - Autoavaliação** 🔥\n`;
-            relatorio += `✔️ **Equipamentos adequados?** ${equipamentos}\n`;
-            relatorio += `🚑 **Deslocamento:** ${deslocamento}\n`;
-            relatorio += `👥 **Equipe com no mínimo 2 bombeiros?** ${equipe}\n`;
-            relatorio += `🧯 **Métodos de combate ao incêndio:** ${metodos}\n`;
+            relatorio += `🔥 **PPO - Avaliação Geral:** ${ppo}/5\n`;
             
             relatorio += `✅ **Atendimento concluído com sucesso.**`;
             
