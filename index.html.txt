@@ -3,10 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório dos Bombeiros</title>
+    <title>Relatório de Ocorrência - Bombeiros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        label, input, select, textarea {
+            width: 100%;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bem-vindo ao sistema de relatórios dos Bombeiros!</h1>
-    <p>Em breve, seu sistema estará 100% funcional.</p>
+    <h1>Relatório de Ocorrência</h1>
+    
+    <label for="tipo">Tipo de Ocorrência:</label>
+    <select id="tipo">
+        <option>Incêndio Urbano</option>
+        <option>Incêndio Florestal</option>
+        <option>Acidente de Trânsito</option>
+        <option>Resgate</option>
+    </select>
+
+    <label for="endereco">Endereço:</label>
+    <input type="text" id="endereco" placeholder="Digite o endereço...">
+
+    <label for="ids">ID(s) da(s) Vítima(s):</label>
+    <input type="text" id="ids" placeholder="Opcional">
+
+    <label for="descricao">Descrição da Ocorrência:</label>
+    <textarea id="descricao" placeholder="Digite uma descrição opcional..."></textarea>
+
+    <button onclick="gerarRelatorio()">Gerar Relatório</button>
+
+    <h2>Relatório Gerado:</h2>
+    <textarea id="relatorio" readonly></textarea>
+
+    <script>
+        function gerarRelatorio() {
+            const tipo = document.getElementById("tipo").value;
+            const endereco = document.getElementById("endereco").value;
+            const ids = document.getElementById("ids").value;
+            const descricao = document.getElementById("descricao").value;
+
+            let relatorio = `🚒 **Relatório de Ocorrência** 🚒\n\n`;
+            relatorio += `🔹 **Tipo de Ocorrência:** ${tipo}\n`;
+            relatorio += `📍 **Endereço:** ${endereco}\n`;
+
+            if (ids.trim() !== "") {
+                relatorio += `🆔 **ID(s) da(s) Vítima(s):** ${ids}\n`;
+            }
+
+            if (descricao.trim() !== "") {
+                relatorio += `📝 **Descrição:** ${descricao}\n`;
+            }
+
+            relatorio += `✅ **Atendimento concluído com sucesso.**`;
+
+            document.getElementById("relatorio").value = relatorio;
+        }
+    </script>
 </body>
 </html>
