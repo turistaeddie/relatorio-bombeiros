@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectItem } from "@/components/ui/select";
+
+export default function RelatorioOcorrencia() {
+  const [tipoOcorrencia, setTipoOcorrencia] = useState("");
+  const [idsVitimas, setIdsVitimas] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [relatorioGerado, setRelatorioGerado] = useState("");
+
+  const gerarRelatorio = () => {
+    const relatorio = `
+    📄 RELATÓRIO DE OCORRÊNCIA
+    🔥 Tipo de Ocorrência: ${tipoOcorrencia}
+    👥 IDs das Vítimas: ${idsVitimas || "Nenhuma"}
+    📝 Descrição: ${descricao || "Nenhuma"}
+    `;
+    setRelatorioGerado(relatorio);
+  };
+
+  return (
+    <div className="p-6 space-y-4 max-w-lg mx-auto">
+      <Card>
+        <CardContent className="p-4 space-y-4">
+          <Select value={tipoOcorrencia} onValueChange={setTipoOcorrencia}>
+            <SelectItem value="Incêndio Urbano">Incêndio Urbano</SelectItem>
+            <SelectItem value="Acidente Veicular">Acidente Veicular</SelectItem>
+            <SelectItem value="Resgate de Vítima">Resgate de Vítima</SelectItem>
+            <SelectItem value="Outros">Outros</SelectItem>
+          </Select>
+          
+          <Textarea 
+            placeholder="IDs das vítimas (se houver)" 
+            value={idsVitimas} 
+            onChange={(e) => setIdsVitimas(e.target.value)} 
+          />
+
+          <Textarea 
+            placeholder="Descrição opcional da ocorrência" 
+            value={descricao} 
+            onChange={(e) => setDescricao(e.target.value)} 
+          />
+          
+          <Button onClick={gerarRelatorio}>Gerar Relatório</Button>
+        </CardContent>
+      </Card>
+
+      {relatorioGerado && (
+        <Card>
+          <CardContent className="p-4 whitespace-pre-wrap">
+            {relatorioGerado}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
